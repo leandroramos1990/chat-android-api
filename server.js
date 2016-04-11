@@ -37,6 +37,6 @@ app.get('/api/users/list', usersController.list);
 
 app.get('/api/users/mock', usersController.mock);
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log("Working on port 3000");
 });
