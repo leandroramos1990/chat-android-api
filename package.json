@@ -13,9 +13,11 @@
   "author": "leandroramos.crz@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
     "express": "^4.13.4",
     "mongodb": "^2.1.16",
-    "mongoose": "^4.4.11",
+    "mongoose": "^4.4.12",
     "node-gcm": "^0.14.0"
   }
 }
