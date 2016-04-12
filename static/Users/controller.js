@@ -6,6 +6,19 @@ var list = function(req, res){
 	});
 }
 
+var login = function(req, res){
+    var data = res.req.headers;
+    var email = data.email;
+    var password = data.password;
+    
+    console.log(email);
+    console.log(password);
+    
+	User.find({"email": email, "password": password}, {_id:0, __v:0}, function (err, users){
+		res.status(200).json({users: users});
+	});
+}
+
 var insert = function(req, res){ }
 
 var mock = function(req, res){
@@ -15,3 +28,4 @@ var mock = function(req, res){
 
 exports.list = list;
 exports.mock = mock;
+exports.login = login;

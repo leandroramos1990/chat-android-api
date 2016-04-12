@@ -11,24 +11,38 @@ app.use(cors());
 
 var usersController = require('./static/Users/controller');
 
-mongoose.connect(process.env.MONGODB_URL);
+url = 'mongodb://root:#q1w2e3#@ds019970.mlab.com:19970/chat';
+mongoose.connect(process.env.MONGODB_URL || url);
 
 io.on('connection', function(socket){
-	socket.on('chat message', function(msg){
-		io.emit('chat message', msg);
-	});
-});
+    console.log('usuario conectado');
 
-/*
-if (io.sockets.connected[socketid]) {
-    io.sockets.connected[socketid].emit('message', 'for your eyes only');
-}
-*/
+    socket.on('disconnect', function(){
+        console.log('usuario desconectado');
+    });
+    
+	socket.on('chat message', function(msg){
+        io.emit('chat message', 'msg');
+	});
+        
+});
 
 app.get('/api/users/list', usersController.list);
 
 app.get('/api/users/mock', usersController.mock);
 
-app.listen(process.env.PORT || 3000,function(){
+app.post('/api/login', usersController.login);     
+
+app.post('/register',function(req,res){         
+          var email = req.body.email;             
+               var password = req.body.password;       
+
+          register.register(email,password,function (found) {             
+               console.log(found);             
+               res.json(found);    
+     });     
+}); 
+
+http.listen(process.env.PORT || 3000,function(){
     console.log("Working on port 3000");
 });
