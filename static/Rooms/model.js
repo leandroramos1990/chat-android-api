@@ -3,22 +3,18 @@ var Schema = mongoose.Schema;
 
 var roomSchema = new Schema({
  
-    name :{
+    title :{
         type: String,
         required: true
     },
     description:{
         type: String,
         required: true
-    },
-    user_owner_id :{
-        type: String,
-        required: false
     }
 
 });
 
 
-var Room = mongoose.model('chat', roomSchema);
+var Room = mongoose.model('rooms', roomSchema);
 
 module.exports = Room;

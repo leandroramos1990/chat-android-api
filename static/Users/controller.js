@@ -11,15 +11,28 @@ var login = function(req, res){
     var email = data.email;
     var password = data.password;
     
-    console.log(email);
-    console.log(password);
-    
-	User.find({"email": email, "password": password}, {_id:0, __v:0}, function (err, users){
-		res.status(200).json({users: users});
+	User.find({email: email, password: password}, {_id:0, __v:0}, function (err, users){
+        if(err != null) {
+            res.status(200).json({users: users});    
+        } else {
+            console.log(err);
+        }
+		
 	});
 }
 
-var insert = function(req, res){ }
+var insert = function(req, res){
+    var data = res.req.headers;
+    var name = data.name;
+    var email = data.email;
+    var password = data.password;
+    
+    console.log(name);
+    console.log(email);
+    
+    var user = new User({name: name, email: email, password: password });
+    user.save(); 
+}
 
 var mock = function(req, res){
 	var user = new User({ name: "leandro", email: "leandroramos.crz@gmail.com", "password": "123456" });
@@ -27,5 +40,6 @@ var mock = function(req, res){
 }
 
 exports.list = list;
+exports.insert = insert;
 exports.mock = mock;
 exports.login = login;

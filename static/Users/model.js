@@ -13,12 +13,12 @@ var userSchema = new Schema({
     },
     password :{
         type: String,
-        required: false
+        required: true
     }
 
 });
 
 
-var User = mongoose.model('chat', userSchema);
+var User = mongoose.model('users', userSchema);
 
 module.exports = User;
