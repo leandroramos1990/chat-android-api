@@ -7,15 +7,14 @@ var list = function(req, res){
 }
 
 var login = function(req, res){
-    var data = res.req.headers;
-    var email = data.email;
-    var password = data.password;
+	var email = req.params.email;
+	var password = req.params.password;
     
-	User.find({email: email, password: password}, {_id:0, __v:0}, function (err, users){
-        if(err != null) {
-            res.status(200).json({users: users});    
+	User.find({email: email, password: password}, {_id:0, __v:0}, function (err, user){
+        if(user != null) {
+            res.status(200).json({login: "success"});    
         } else {
-            console.log(err);
+        	res.status(200).json({login: "failure"}); 
         }
 		
 	});
@@ -26,9 +25,6 @@ var insert = function(req, res){
     var name = data.name;
     var email = data.email;
     var password = data.password;
-    
-    console.log(name);
-    console.log(email);
     
     var user = new User({name: name, email: email, password: password });
     user.save(); 

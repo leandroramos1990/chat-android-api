@@ -22,15 +22,17 @@ io.on('connection', function(socket){
         console.log('usuario desconectado');
     });
     
-	socket.on('chat message', function(msg){
-        io.emit('chat message', 'msg');
+	socket.on('message', function(msg){
+		console.log(msg);
+        io.emit('message', msg);
 	});
         
 });
 
 app.get('/api/users/list', usersController.list);
 app.get('/api/users/mock', usersController.mock);
-app.post('/api/users/login', usersController.login);
+app.post('/api/users/login/:email/:password', usersController.login);
+app.post('/api/users/register/:email/:password/:name', usersController.register);
 
 app.get('/api/rooms/list', roomsController.list);
 app.post('/api/rooms/insert', roomsController.insert);
@@ -45,6 +47,7 @@ app.post('/register',function(req,res){
      });     
 }); 
 
+/*
 app.post('/send/:room/', function(req, res) {
     var room = req.params.room
     var message = req.body;
@@ -53,6 +56,7 @@ app.post('/send/:room/', function(req, res) {
 
     res.end('message sent');
 });
+*/
 
 http.listen(process.env.PORT || 3000,function(){
     console.log("Working on port 3000");
