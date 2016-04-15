@@ -1,17 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-	
+var chatSchema = new Schema({
+ 
     username :{
         type: String,
         required: true
     },
-    email:{
-        type: String,
-        required: true
-    },
-    password :{
+    message:{
         type: String,
         required: true
     }
@@ -19,6 +15,6 @@ var userSchema = new Schema({
 });
 
 
-var User = mongoose.model('users', userSchema);
+var Chat = mongoose.model('chats', chatSchema);
 
-module.exports = User;
+module.exports = Chat;

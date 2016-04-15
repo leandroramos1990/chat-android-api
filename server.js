@@ -11,6 +11,7 @@ app.use(cors());
 
 var usersController = require('./static/Users/controller');
 var roomsController = require('./static/Rooms/controller');
+var chatsController = require('./static/Chats/controller');
 
 url = 'mongodb://root:#q1w2e3#@ds019970.mlab.com:19970/chat';
 mongoose.connect(process.env.MONGODB_URL || url);
@@ -31,22 +32,13 @@ io.on('connection', function(socket){
 
 app.get('/api/users/list', usersController.list);
 app.get('/api/users/mock', usersController.mock);
-app.post('/api/users/login/:email/:password', usersController.login);
-app.post('/api/users/register/:email/:password/:name', usersController.register);
+app.get('/api/users/login/:email/:password', usersController.login);
+app.get('/api/users/register/:email/:password/:username', usersController.register);
 
 app.get('/api/rooms/list', roomsController.list);
 app.post('/api/rooms/insert', roomsController.insert);
 
-app.post('/register',function(req,res){         
-    var email = req.body.email;             
-    var password = req.body.password;       
-
-    register.register(email,password,function (found) {             
-               console.log(found);             
-               res.json(found);    
-     });     
-}); 
-
+app.get('/api/chats/list', chatsController.list);
 /*
 app.post('/send/:room/', function(req, res) {
     var room = req.params.room
