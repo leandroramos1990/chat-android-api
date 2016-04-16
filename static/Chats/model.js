@@ -10,6 +10,14 @@ var chatSchema = new Schema({
     message:{
         type: String,
         required: true
+    },
+    idRoom:{
+        type: String,
+        required: true
+    },
+     typeMessage:{
+        type: String,
+        required: false
     }
 
 });

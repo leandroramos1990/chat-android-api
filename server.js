@@ -26,8 +26,7 @@ io.on('connection', function(socket){
 	socket.on('message', function(msg){
 		console.log(msg);
         io.emit('message', msg);
-	});
-        
+	});    
 });
 
 app.get('/api/users/list', usersController.list);
@@ -37,18 +36,12 @@ app.get('/api/users/register/:email/:password/:username', usersController.regist
 
 app.get('/api/rooms/list', roomsController.list);
 app.post('/api/rooms/insert', roomsController.insert);
+app.get('/api/rooms/getLastRoomInserted', roomsController.getLastRoomInserted);
 
-app.get('/api/chats/list', chatsController.list);
-/*
-app.post('/send/:room/', function(req, res) {
-    var room = req.params.room
-    var message = req.body;
+app.get('/api/chats/list/:idroom', chatsController.list);
+app.post('/api/chats/insert', chatsController.insert);
+app.get('/api/chats/mock', chatsController.mock);
 
-    io.sockets.in(room).emit('message', { room: room, message: message });
-
-    res.end('message sent');
-});
-*/
 
 http.listen(process.env.PORT || 3000,function(){
     console.log("Working on port 3000");

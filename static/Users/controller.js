@@ -18,19 +18,25 @@ var insert = function(req, res){
 var mock = function(req, res){
 	var user = new User({ username: "leandro", email: "leandroramos.crz@gmail.com", "password": "123456" });
 	user.save();
+    
+    res.status(200).json({status: "ok"});
 }
 
 var login = function(req, res){
 	var email = req.params.email;
 	var password = req.params.password;
     
+    console.log(email);
+    console.log(password);
+    
 	User.find({email: email, password: password}, {_id:0, __v:0}, function (err, user){
+
         if(user.length == 0) {
-            res.status(200).json({login: "failure"});   
+            var login = [{'login': 'failure'}];
         } else {
-            res.status(200).json({login: "success"}); 
-        	
+            var login = user; 
         }
+        res.status(200).json({login: login}); 	
 		
 	});
 }
@@ -40,16 +46,18 @@ var register = function(req, res){
 	var email = req.params.email;
 	var password = req.params.password;
     
+    console.log(username, email, password);
 	User.find({email: email, username: username}, {_id:0, __v:0}, function (err, user){
         if(user.length == 0) {
              
             var user = new User({ username: username, email: email, password: password });
 	        user.save(); 
-            res.status(200).json({register: "success"});
+            var register = user;
             
         } else {
-           res.status(200).json({register: "user exist"}); 
+           var register = [{'register': 'failure'}];
         }
+        res.status(200).json({register: register}); 
 		
 	});
 }
