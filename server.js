@@ -17,7 +17,7 @@ url = 'mongodb://root:#q1w2e3#@ds019970.mlab.com:19970/chat';
 mongoose.connect(process.env.MONGODB_URL || url);
 
 io.on('connection', function(socket){
-    console.log('usuario conectado');
+    console.log('usuario conectado no socket ' + socket.id);
 
     socket.on('disconnect', function(){
         console.log('usuario desconectado');
@@ -25,7 +25,10 @@ io.on('connection', function(socket){
     
 	socket.on('message', function(msg){
 		console.log(msg);
-        io.emit('message', msg);
+        //io.emit('message', msg);
+        //socket.emit('message',{message:msg});
+        
+        socket.broadcast.emit('message', msg);
 	});    
 });
 
